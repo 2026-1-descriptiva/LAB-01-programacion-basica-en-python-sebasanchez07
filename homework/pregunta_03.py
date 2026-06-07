@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import os
 
 def pregunta_03():
     """
@@ -15,3 +16,17 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+
+    suma = {}
+    filepath = os.path.join(os.path.dirname(__file__), "..", "files", "input", "data.csv" )
+    with open(filepath, "r") as f:
+          for line in f:
+            cols = line.strip().split("\t")     
+            letra = cols[0]        
+            numero = int(cols[1])   
+            suma[letra] = suma.get(letra, 0) + numero
+    resultado = sorted(suma.items()) 
+    return resultado
+        
+
+

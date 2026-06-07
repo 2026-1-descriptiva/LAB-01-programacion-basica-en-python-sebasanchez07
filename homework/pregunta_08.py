@@ -8,11 +8,8 @@ utilizar pandas, numpy o scipy.
 
 def pregunta_08():
     """
-    Genere una lista de tuplas, donde el primer elemento de cada tupla
-    contiene  el valor de la segunda columna; la segunda parte de la tupla
-    es una lista con las letras (ordenadas y sin repetir letra) de la
-    primera  columna que aparecen asociadas a dicho valor de la segunda
-    columna.
+    Igual que pregunta_07 pero las letras de la lista deben estar ordenadas
+    alfabéticamente y sin duplicados.
 
     Rta/
     [(0, ['C']),
@@ -27,3 +24,27 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    import os
+
+    filepath = os.path.join(os.path.dirname(__file__), "..", "files", "input", "data.csv")
+
+    grupos = {}
+
+    with open(filepath, "r") as f:
+        for line in f:
+            cols = line.strip().split("\t")
+            letra = cols[0]
+            numero = int(cols[1])
+
+            if numero not in grupos:
+                grupos[numero] = [letra]
+            else:
+                grupos[numero].append(letra)
+
+    resultado = []
+    for numero in sorted(grupos):
+        # set() elimina duplicados, sorted() ordena alfabéticamente, list() lo vuelve lista
+        letras_unicas_ordenadas = sorted(set(grupos[numero]))
+        resultado.append((numero, letras_unicas_ordenadas))
+
+    return resultado

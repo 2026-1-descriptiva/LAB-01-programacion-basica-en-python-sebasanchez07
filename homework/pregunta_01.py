@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import os
 
 def pregunta_01():
     """
@@ -14,3 +15,10 @@ def pregunta_01():
     214
 
     """
+    filepath = os.path.join(os.path.dirname(__file__), "..", "files", "input", "data.csv")
+    with open(filepath, "r") as f:
+        total = 0
+        for line in f:
+            cols = line.strip().split("\t")
+            total += int(cols[1])
+    return total
